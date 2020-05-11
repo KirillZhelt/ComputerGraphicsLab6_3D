@@ -46,10 +46,10 @@ public class ZLetterMesh {
 
     private TriangleMesh mesh;
 
-    public ZLetterMesh(float height, float width) {
+    public ZLetterMesh(float width, float height) {
         this.mesh = new TriangleMesh();
 
-        this.mesh.getPoints().addAll(ZLetterMesh.calculatePoints(height, width));
+        this.mesh.getPoints().addAll(ZLetterMesh.calculatePoints(width, height));
         this.mesh.getTexCoords().addAll(0, 0);
         this.mesh.getFaces().addAll(ZLetterMesh.FACES);
     }
@@ -58,29 +58,29 @@ public class ZLetterMesh {
         return this.mesh;
     }
 
-    private static float[] calculatePoints(float height, float width) {
+    private static float[] calculatePoints(float width, float height) {
         return new float[] {
             // x, y, z
-            0, 130, 50,      // P0
-            100, 130, 50,    // P1
-            100, 100, 50,    // P2
-            40, 100, 50,     // P3
-            0, 100, 50,      // P4
-            60, 30, 50,      // P5
-            0, 30, 50,       // P6
+            0, height, 50,      // P0
+            width, height, 50,    // P1
+            width, 0.77f * height, 50,    // P2
+            0.4f * width, 0.77f * height, 50,     // P3
+            0, 0.77f * height, 50,      // P4
+            0.6f * width, 0.23f * height, 50,      // P5
+            0, 0.23f * height, 50,       // P6
             0, 0, 50,        // P7
-            100, 0, 50,      // P8
-            100, 30, 50,     // P9
-            0, 130, 0,       // P10
-            100, 130, 0,     // P11
-            100, 100, 0,     // P12
-            40, 100, 0,      // P13
-            0, 100, 0,       // P14
-            60, 30, 0,       // P15
-            0, 30, 0,        // P16
+            width, 0, 50,      // P8
+            width, 0.23f * height, 50,     // P9
+            0, height, 0,       // P10
+            width, height, 0,     // P11
+            width, 0.77f * height, 0,     // P12
+            0.4f * width, 0.77f * height, 0,      // P13
+            0, 0.77f * height, 0,       // P14
+            0.6f * width, 0.23f * height, 0,       // P15
+            0, 0.23f * height, 0,        // P16
             0, 0, 0,         // P17
-            100, 0, 0,       // P18
-            100, 30, 0       // P19
+            width, 0, 0,       // P18
+            width, 0.23f * height, 0       // P19
         };
     }
 

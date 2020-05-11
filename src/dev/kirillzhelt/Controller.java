@@ -19,7 +19,7 @@ public class Controller {
     private GridPane gridPane;
 
     public void init() {
-        MeshView letterMeshView = new MeshView((new ZLetterMesh(200, 200)).getMesh());
+        MeshView letterMeshView = new MeshView((new ZLetterMesh(100, 200)).getMesh());
         letterMeshView.setDrawMode(DrawMode.FILL);
         letterMeshView.setMaterial(new PhongMaterial());
         letterMeshView.setTranslateX(0);
