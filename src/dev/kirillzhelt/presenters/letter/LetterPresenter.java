@@ -3,6 +3,7 @@ package dev.kirillzhelt.presenters.letter;
 import javafx.geometry.Point3D;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 
 public class LetterPresenter {
 
@@ -50,6 +51,22 @@ public class LetterPresenter {
         System.out.println("onKeyXPressed");
 
         this.scaleView(1.1);
+    }
+
+    public void onKeyAPressed() {
+        System.out.println("onKeyAPressed");
+
+        this.translateXView(-10);
+    }
+
+    public void onKeySPressed() {
+        System.out.println("onKeySPressed");
+
+        this.translateXView(10);
+    }
+
+    public void translateXView(double translateValue) {
+        this.letterView.translateX(new Translate(translateValue, 0, 0));
     }
 
     private void scaleView(double scaleFactor) {

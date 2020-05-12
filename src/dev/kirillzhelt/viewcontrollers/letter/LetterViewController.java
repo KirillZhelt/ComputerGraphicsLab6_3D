@@ -13,10 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.MeshView;
-import javafx.scene.transform.MatrixType;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Transform;
+import javafx.scene.transform.*;
 
 import java.text.DecimalFormat;
 
@@ -90,6 +87,14 @@ public class LetterViewController implements LetterView {
                     this.presenter.onKeyXPressed();
                     break;
                 }
+                case A: {
+                    this.presenter.onKeyAPressed();
+                    break;
+                }
+                case S: {
+                    this.presenter.onKeySPressed();
+                    break;
+                }
             }
 
         });
@@ -103,6 +108,11 @@ public class LetterViewController implements LetterView {
     @Override
     public void scaleAll(Scale scale) {
         this.transform(scale);
+    }
+
+    @Override
+    public void translateX(Translate translate) {
+        this.transform(translate);
     }
 
     private void transform(Transform transform) {
