@@ -61,43 +61,7 @@ public class LetterViewController implements LetterView {
 
     private void setupKeyEventHandlers() {
         this.gridPane.requestFocus();
-        this.gridPane.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
-            switch (e.getCode()) {
-                case UP: {
-                    this.presenter.onKeyUpPressed();
-                    break;
-                }
-                case DOWN: {
-                    this.presenter.onKeyDownPressed();
-                    break;
-                }
-                case RIGHT: {
-                    this.presenter.onKeyRightPressed();
-                    break;
-                }
-                case LEFT: {
-                    this.presenter.onKeyLeftPressed();
-                    break;
-                }
-                case Z: {
-                    this.presenter.onKeyZPressed();
-                    break;
-                }
-                case X: {
-                    this.presenter.onKeyXPressed();
-                    break;
-                }
-                case A: {
-                    this.presenter.onKeyAPressed();
-                    break;
-                }
-                case S: {
-                    this.presenter.onKeySPressed();
-                    break;
-                }
-            }
-
-        });
+        this.gridPane.addEventHandler(KeyEvent.KEY_PRESSED, this.presenter::onKeyPressed);
     }
 
     @Override
