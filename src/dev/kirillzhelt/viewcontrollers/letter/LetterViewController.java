@@ -6,16 +6,18 @@ import dev.kirillzhelt.presenters.letter.LetterPresenter;
 import dev.kirillzhelt.presenters.letter.LetterView;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Box;
 import javafx.scene.shape.MeshView;
 import javafx.scene.transform.*;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LetterViewController implements LetterView {
 
@@ -26,20 +28,29 @@ public class LetterViewController implements LetterView {
 
     private LetterPresenter presenter;
 
+    private final List<Rotate> initialRotations = new ArrayList<Rotate>() {{
+        add(new Rotate(-15, 0, 0, 0, Rotate.Y_AXIS));
+        add(new Rotate(-15, 0, 0, 0, Rotate.X_AXIS));
+    }};
+
     public void init() {
         this.presenter = new LetterPresenter(this);
 
         this.gridPane.setHgap(20);
+        this.gridPane.setGridLinesVisible(true);
 
         this.setupColumns();
+        this.setupRows();
 
         this.mainGroup = new Group();
+        this.mainGroup.getTransforms().addAll(this.initialRotations);
         this.gridPane.add(this.mainGroup, 0, 0);
 
         this.transformationMatrixTextArea = ControlUtils.createReadonlyTextArea(120, 100);
         this.gridPane.add(this.transformationMatrixTextArea, 1, 0);
 
-        this.addLetterMeshView();
+        this.addLetterMeshViewGroup();
+        this.addAxisGroup();
 
         this.setupKeyEventHandlers();
     }
@@ -52,11 +63,40 @@ public class LetterViewController implements LetterView {
         this.gridPane.getColumnConstraints().add(ControlUtils.createColumn(5, HPos.CENTER));
     }
 
-    private void addLetterMeshView() {
+    private void setupRows() {
+        this.gridPane.getRowConstraints().clear();
+
+        this.gridPane.getRowConstraints().add(ControlUtils.createRow(100, VPos.CENTER));
+    }
+
+    private void addLetterMeshViewGroup() {
         ZLetterMesh letterMesh = new ZLetterMesh(100, 130);
         MeshView letterMeshView = MeshViewUtils.createMeshView(letterMesh.getMesh());
 
         this.mainGroup.getChildren().add(letterMeshView);
+    }
+
+    private void addAxisGroup() {
+        Group axis = new Group();
+
+        int width = 300;
+
+        Box xAxis = ControlUtils.createBox(width, 3, 3);
+        xAxis.setTranslateY(width / 2);
+        xAxis.setTranslateZ(width / 2);
+
+        Box yAxis = ControlUtils.createBox(3, width, 3);
+        yAxis.setTranslateX(-width / 2);
+        yAxis.setTranslateZ(width / 2);
+
+        Box zAxis = ControlUtils.createBox(3, 3, width);
+        zAxis.setTranslateX(-width / 2);
+        zAxis.setTranslateY(width / 2);
+
+        axis.getChildren().addAll(xAxis, yAxis, zAxis);
+        axis.getTransforms().addAll(this.initialRotations);
+
+        this.gridPane.add(axis, 0, 0);
     }
 
     private void setupKeyEventHandlers() {
@@ -65,17 +105,17 @@ public class LetterViewController implements LetterView {
     }
 
     @Override
-    public void rotateAll(Rotate rotate) {
+    public void rotateLetter(Rotate rotate) {
         this.transform(rotate);
     }
 
     @Override
-    public void scaleAll(Scale scale) {
+    public void scaleLetter(Scale scale) {
         this.transform(scale);
     }
 
     @Override
-    public void translateX(Translate translate) {
+    public void translateXLetter(Translate translate) {
         this.transform(translate);
     }
 

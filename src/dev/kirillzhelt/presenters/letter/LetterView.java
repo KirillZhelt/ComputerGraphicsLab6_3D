@@ -6,8 +6,8 @@ import javafx.scene.transform.Translate;
 
 public interface LetterView {
 
-    void rotateAll(Rotate rotate);
-    void scaleAll(Scale scale);
-    void translateX(Translate translate);
+    void rotateLetter(Rotate rotate);
+    void scaleLetter(Scale scale);
+    void translateXLetter(Translate translate);
 
 }

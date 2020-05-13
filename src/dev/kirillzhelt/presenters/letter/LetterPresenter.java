@@ -54,7 +54,7 @@ public class LetterPresenter {
     }
 
     private void rotateView(double angle, Point3D axis) {
-        this.letterView.rotateAll(new Rotate(angle, 0, 0, 0, axis));
+        this.letterView.rotateLetter(new Rotate(angle, 0, 0, 0, axis));
     }
 
     public void increaseScale() {
@@ -66,7 +66,7 @@ public class LetterPresenter {
     }
 
     private void scaleView(double scaleFactor) {
-        this.letterView.scaleAll(new Scale(scaleFactor, scaleFactor, scaleFactor, 0, 0, 0));
+        this.letterView.scaleLetter(new Scale(scaleFactor, scaleFactor, scaleFactor, 0, 0, 0));
     }
 
     public void translateXNegative() {
@@ -78,7 +78,7 @@ public class LetterPresenter {
     }
 
     public void translateXView(double translateValue) {
-        this.letterView.translateX(new Translate(translateValue, 0, 0));
+        this.letterView.translateXLetter(new Translate(translateValue, 0, 0));
     }
 
 }
