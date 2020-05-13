@@ -1,39 +1,55 @@
 package dev.kirillzhelt.presenters.letter;
 
 import javafx.geometry.Point3D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
+
 
 public class LetterPresenter {
 
     private LetterView letterView;
 
+    private KeyEventManager keyEventManager;
+
     public LetterPresenter(LetterView letterView) {
         this.letterView = letterView;
+        this.keyEventManager = new KeyEventManager();
+
+        this.setupKeyEventManager();
     }
 
-    public void onKeyUpPressed() {
-        System.out.println("onKeyUpPressed");
+    private void setupKeyEventManager() {
+        this.keyEventManager.addHandler(KeyCode.UP, e -> this.rotateXPositive());
+        this.keyEventManager.addHandler(KeyCode.DOWN, e -> this.rotateXNegative());
+        this.keyEventManager.addHandler(KeyCode.RIGHT, e -> this.rotateYPositive());
+        this.keyEventManager.addHandler(KeyCode.LEFT, e -> this.rotateYNegative());
+        this.keyEventManager.addHandler(KeyCode.RIGHT, e -> this.rotateYPositive());
+        this.keyEventManager.addHandler(KeyCode.Z, e -> this.increaseScale());
+        this.keyEventManager.addHandler(KeyCode.X, e -> this.decreaseScale());
+        this.keyEventManager.addHandler(KeyCode.A, e -> this.translateXNegative());
+        this.keyEventManager.addHandler(KeyCode.S, e -> this.translateXPositive());
+    }
 
+    public void onKeyPressed(KeyEvent e) {
+        this.keyEventManager.handleKey(e);
+    }
+
+    public void rotateXPositive() {
         this.rotateView(15, Rotate.X_AXIS);
     }
 
-    public void onKeyDownPressed() {
-        System.out.println("onKeyDownPressed");
-
+    public void rotateXNegative() {
         this.rotateView(-15, Rotate.X_AXIS);
     }
 
-    public void onKeyLeftPressed() {
-        System.out.println("onKeyLeftPressed");
-
+    public void rotateYNegative() {
         this.rotateView(-15, Rotate.Y_AXIS);
     }
 
-    public void onKeyRightPressed() {
-        System.out.println("onKeyRightPressed");
-
+    public void rotateYPositive() {
         this.rotateView(15, Rotate.Y_AXIS);
     }
 
@@ -41,36 +57,28 @@ public class LetterPresenter {
         this.letterView.rotateAll(new Rotate(angle, 0, 0, 0, axis));
     }
 
-    public void onKeyZPressed() {
-        System.out.println("onKeyZPressed");
-
+    public void increaseScale() {
         this.scaleView(1 / 1.1);
     }
 
-    public void onKeyXPressed() {
-        System.out.println("onKeyXPressed");
-
+    public void decreaseScale() {
         this.scaleView(1.1);
     }
 
-    public void onKeyAPressed() {
-        System.out.println("onKeyAPressed");
+    private void scaleView(double scaleFactor) {
+        this.letterView.scaleAll(new Scale(scaleFactor, scaleFactor, scaleFactor, 0, 0, 0));
+    }
 
+    public void translateXNegative() {
         this.translateXView(-10);
     }
 
-    public void onKeySPressed() {
-        System.out.println("onKeySPressed");
-
+    public void translateXPositive() {
         this.translateXView(10);
     }
 
     public void translateXView(double translateValue) {
         this.letterView.translateX(new Translate(translateValue, 0, 0));
-    }
-
-    private void scaleView(double scaleFactor) {
-        this.letterView.scaleAll(new Scale(scaleFactor, scaleFactor, scaleFactor, 0, 0, 0));
     }
 
 }
